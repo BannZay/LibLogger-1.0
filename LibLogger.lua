@@ -62,6 +62,7 @@ function lib:New(namedObjectOrName, maximumLogLevel, prescription, printMethod, 
 		end
 		
 		namedObjectOrName.logger = instance;
+		instance.owner = namedObjectOrName;
 		
 		if maximumLogLevel == nil then
 			maximumLogLevel = namedObjectOrName.logLevel;
@@ -76,6 +77,14 @@ function lib:New(namedObjectOrName, maximumLogLevel, prescription, printMethod, 
 	instance.redirectCountLimit = redirectCountLimit or self.defaultRedirectCountLimit;
 	
 	LibPrototype:SetName(instance, namedObjectOrName or "")
+
+	local metatable = getmetatable(instance);
+	
+	if metatable.__call == nil then
+		metatable.__call = function(self, ...) self:Log(...) end;
+	end
+	
+	setmetatable(instance, metatable);
 
 	return instance
 end
