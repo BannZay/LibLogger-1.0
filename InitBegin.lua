@@ -1,4 +1,4 @@
-local Logger = LibStub:NewLibrary("LibLogger-1.0", 1);
+local Logger = LibStub:NewLibrary("LibLogger-1.0", 2);
 if Logger ~= nil then 
 	Logger.Initialization = true;
 	

@@ -72,9 +72,13 @@ function LoggerPrototype:Log(level, ...)
 	end
 end
 
-function LoggerPrototype:Error(errorMessage, ...)
-	self:Log(-99, errorMessage, ...);
+function LoggerPrototype:ThrowError(errorMessage, ...)
+	self:Error(errorMessage, ...);
 	error(errorMessage);
+end
+
+function LoggerPrototype:Error(...)
+	self:Log(-99, "ERROR:", ...);
 end
 
 function LoggerPrototype:LogVariable(level, variableName, value)
